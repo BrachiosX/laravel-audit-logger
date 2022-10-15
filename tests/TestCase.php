@@ -2,9 +2,9 @@
 
 namespace BrachiosX\AuditLogger\Tests;
 
+use BrachiosX\AuditLogger\AuditLoggerServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use BrachiosX\AuditLogger\AuditLoggerServiceProvider;
 
 class TestCase extends Orchestra
 {

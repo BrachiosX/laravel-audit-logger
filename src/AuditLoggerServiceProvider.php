@@ -2,9 +2,9 @@
 
 namespace BrachiosX\AuditLogger;
 
+use BrachiosX\AuditLogger\Commands\AuditLoggerCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use BrachiosX\AuditLogger\Commands\AuditLoggerCommand;
 
 class AuditLoggerServiceProvider extends PackageServiceProvider
 {
