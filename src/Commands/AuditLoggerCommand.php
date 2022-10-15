@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace BrachiosX\AuditLogger\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class AuditLoggerCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-audit-logger';
 
     public $description = 'My command';
 

@@ -1,17 +1,17 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "brachiosx/laravel-audit-logger",
+    "description": "Provide application in auditing model changes.",
     "keywords": [
-        ":vendor_name",
+        "BrachiosX",
         "laravel",
-        ":package_slug"
+        "laravel-audit-logger"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/brachiosx/laravel-audit-logger",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Zaw Hlyan Htet",
+            "email": "prsn.zawhlyanhtet@gmail.com",
             "role": "Developer"
         }
     ],
@@ -35,13 +35,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories"
+            "BrachiosX\\AuditLogger\\": "src",
+            "BrachiosX\\AuditLogger\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "BrachiosX\\AuditLogger\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -61,10 +61,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "BrachiosX\\AuditLogger\\AuditLoggerServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "AuditLogger": "BrachiosX\\AuditLogger\\Facades\\AuditLogger"
             }
         }
     },
