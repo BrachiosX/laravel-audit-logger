@@ -11,6 +11,7 @@ class OnUpdateLoggerJob
     use Dispatchable;
 
     private Model $model;
+
     private array $ignoreFields;
 
     /**
@@ -32,13 +33,15 @@ class OnUpdateLoggerJob
     public function handle()
     {
         $ignoreFields = array_merge(
-          config('audit_logger.ignore_fields', []),
-          $this->ignoreFields
+            config('audit_logger.ignore_fields', []),
+            $this->ignoreFields
         );
 
         $editedFieldCollection = collect($this->model->getChanges());
         $editedFieldCollection->each(function ($editedValue, $fieldName) use ($ignoreFields) {
-            if (in_array($fieldName, $ignoreFields)) return;
+            if (in_array($fieldName, $ignoreFields)) {
+                return;
+            }
 
             $originalValue = $this->model->getOriginal($fieldName);
 
