@@ -8,12 +8,44 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('laravel_audit_logger_table', function (Blueprint $table) {
+        $tableName = config('audit_logger.table_name');
+
+        if (empty($tableName)) {
+            throw new \Exception('Error: config/audit_logger.php not loaded. Run [php artisan config:clear] and try again.');
+        }
+
+        Schema::create($tableName, function (Blueprint $table) {
+            // audit table
             $table->id();
 
-            // add fields
+            $table->unsignedBigInteger('ref_id')->nullable();
+            $table->string('ref_type')->nullable();
 
-            $table->timestamps();
+            $table->string('from')->nullable();
+            $table->string('to')->nullable();
+
+            $table->string('action');
+
+            $table->string('ip_address')->nullable();
+
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->timestamp('created_at')->nullable();
         });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+    */
+    public function down()
+    {
+        $tableName = config('audit_logger.table_name');
+
+        if (empty($tableName)) {
+            throw new \Exception('Error: config/audit_logger.php not loaded. Run [php artisan config:clear] and try again.');
+        }
+
+        Schema::dropIfExists($tableName);
     }
 };
