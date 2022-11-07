@@ -4,11 +4,6 @@ namespace BrachiosX\AuditLogger\Enums;
 
 use MyCLabs\Enum\Enum;
 
-/**
- * @method static AuditAction CREATE()
- * @method static AuditAction UPDATE()
- * @method static AuditAction DELETE()
- */
 final class AuditAction extends Enum
 {
     private const CREATE = 'create';
@@ -16,4 +11,28 @@ final class AuditAction extends Enum
     private const UPDATE = 'update';
 
     private const DELETE = 'delete';
+
+    /**
+     * @return AuditAction
+     */
+    public static function CREATE(): AuditAction
+    {
+        return new AuditAction(self::CREATE);
+    }
+
+    /**
+     * @return AuditAction
+     */
+    public static function UPDATE(): AuditAction
+    {
+        return new AuditAction(self::UPDATE);
+    }
+
+    /**
+     * @return AuditAction
+     */
+    public static function DELETE(): AuditAction
+    {
+        return new AuditAction(self::DELETE);
+    }
 }
