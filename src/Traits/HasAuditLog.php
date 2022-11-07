@@ -16,7 +16,7 @@ trait HasAuditLog
 
         static::updated(function ($user) {
             $ignoreFields = [];
-            if (isset((new self)->ignore_auditing)) {
+            if (property_exists(self::class, 'ignore_auditing')) {
                 $ignoreFields = (new self)->ignore_auditing;
             }
             OnUpdateLoggerJob::dispatchSync($user, $ignoreFields);
