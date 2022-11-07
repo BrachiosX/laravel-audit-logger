@@ -12,6 +12,8 @@ use MyCLabs\Enum\Enum;
 final class AuditAction extends Enum
 {
     private const CREATE = 'create';
+
     private const UPDATE = 'update';
+
     private const DELETE = 'delete';
 }
