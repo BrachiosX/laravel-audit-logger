@@ -2,11 +2,11 @@
 
 namespace BrachiosX\AuditLogger\Traits;
 
-use \Illuminate\Support\Collection;
 use BrachiosX\AuditLogger\Enums\AuditAction;
 use BrachiosX\AuditLogger\Jobs\OnCreatedLoggerJob;
 use BrachiosX\AuditLogger\Jobs\OnDeletedLoggerJob;
 use BrachiosX\AuditLogger\Jobs\OnUpdateLoggerJob;
+use Illuminate\Support\Collection;
 
 trait HasAuditLog
 {
@@ -18,14 +18,14 @@ trait HasAuditLog
         }
 
         $isIgnoreCreateAction = self::isActionIgnored($ignoreActions, AuditAction::CREATE());
-        if (!$isIgnoreCreateAction) {
+        if (! $isIgnoreCreateAction) {
             static::created(function ($user) {
                 OnCreatedLoggerJob::dispatchSync($user);
             });
         }
 
         $isIgnoreUpdateAction = self::isActionIgnored($ignoreActions, AuditAction::UPDATE());
-        if (!$isIgnoreUpdateAction) {
+        if (! $isIgnoreUpdateAction) {
             static::updated(function ($user) {
                 $ignoreFields = [];
                 if (property_exists(self::class, 'ignore_auditing')) {
@@ -36,7 +36,7 @@ trait HasAuditLog
         }
 
         $isIgnoreDeleteAction = self::isActionIgnored($ignoreActions, AuditAction::DELETE());
-        if (!$isIgnoreDeleteAction) {
+        if (! $isIgnoreDeleteAction) {
             static::deleted(function ($user) {
                 OnDeletedLoggerJob::dispatchSync($user);
             });
