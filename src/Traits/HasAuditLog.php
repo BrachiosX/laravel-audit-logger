@@ -2,11 +2,11 @@
 
 namespace BrachiosX\AuditLogger\Traits;
 
-use BrachiosX\AuditLogger\AuditLogger;
-use BrachiosX\AuditLogger\Enums\AuditAction;
 use BrachiosX\AuditLogger\Actions\CreateAction;
 use BrachiosX\AuditLogger\Actions\DeleteAction;
 use BrachiosX\AuditLogger\Actions\UpdateAction;
+use BrachiosX\AuditLogger\AuditLogger;
+use BrachiosX\AuditLogger\Enums\AuditAction;
 use Illuminate\Support\Collection;
 
 trait HasAuditLog
@@ -19,21 +19,21 @@ trait HasAuditLog
         }
 
         $isIgnoreCreateAction = self::isActionIgnored($ignoreActions, AuditAction::CREATE());
-        if (!$isIgnoreCreateAction) {
+        if (! $isIgnoreCreateAction) {
             static::created(function ($model) {
                 AuditLogger::with(new CreateAction())->log($model);
             });
         }
 
         $isIgnoreUpdateAction = self::isActionIgnored($ignoreActions, AuditAction::UPDATE());
-        if (!$isIgnoreUpdateAction) {
+        if (! $isIgnoreUpdateAction) {
             static::updated(function ($model) {
                 AuditLogger::with(new UpdateAction())->log($model);
             });
         }
 
         $isIgnoreDeleteAction = self::isActionIgnored($ignoreActions, AuditAction::DELETE());
-        if (!$isIgnoreDeleteAction) {
+        if (! $isIgnoreDeleteAction) {
             static::deleted(function ($model) {
                 AuditLogger::with(new DeleteAction())->log($model);
             });

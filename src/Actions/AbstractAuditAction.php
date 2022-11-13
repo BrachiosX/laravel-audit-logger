@@ -19,6 +19,7 @@ abstract class AbstractAuditAction implements IAuditAction
     public function setRefModel(Model $model): static
     {
         $this->model = $model;
+
         return $this;
     }
 

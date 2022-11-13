@@ -9,6 +9,7 @@ trait PreventsModelEvents
 {
     /**
      * @return void
+     *
      * @throws InvalidAuditLogAction
      */
     public static function bootPreventsModelEvents(): void
