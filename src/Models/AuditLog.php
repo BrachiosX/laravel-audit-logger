@@ -11,8 +11,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class AuditLog extends Model
 {
-    protected $table = 'laravel_audit_logger_table';
-
     protected $guarded = [];
 
     /**
@@ -24,4 +22,9 @@ class AuditLog extends Model
     protected static array $prevents = ['updating', 'deleting'];
 
     use OnlyUseCreatedTimestamp, PreventsModelEvents;
+
+    public function getTable()
+    {
+        return config('audit_logger.table_name', parent::getTable());
+    }
 }
