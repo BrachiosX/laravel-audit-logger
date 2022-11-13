@@ -2,10 +2,11 @@
 
 namespace BrachiosX\AuditLogger\Traits;
 
+use BrachiosX\AuditLogger\AuditLogger;
 use BrachiosX\AuditLogger\Enums\AuditAction;
-use BrachiosX\AuditLogger\Jobs\OnCreatedLoggerJob;
-use BrachiosX\AuditLogger\Jobs\OnDeletedLoggerJob;
-use BrachiosX\AuditLogger\Jobs\OnUpdateLoggerJob;
+use BrachiosX\AuditLogger\Actions\CreateAction;
+use BrachiosX\AuditLogger\Actions\DeleteAction;
+use BrachiosX\AuditLogger\Actions\UpdateAction;
 use Illuminate\Support\Collection;
 
 trait HasAuditLog
@@ -18,27 +19,23 @@ trait HasAuditLog
         }
 
         $isIgnoreCreateAction = self::isActionIgnored($ignoreActions, AuditAction::CREATE());
-        if (! $isIgnoreCreateAction) {
-            static::created(function ($user) {
-                OnCreatedLoggerJob::dispatchSync($user);
+        if (!$isIgnoreCreateAction) {
+            static::created(function ($model) {
+                AuditLogger::with(new CreateAction())->log($model);
             });
         }
 
         $isIgnoreUpdateAction = self::isActionIgnored($ignoreActions, AuditAction::UPDATE());
-        if (! $isIgnoreUpdateAction) {
-            static::updated(function ($user) {
-                $ignoreFields = [];
-                if (property_exists(self::class, 'ignore_auditing')) {
-                    $ignoreFields = (new self)->ignore_auditing;
-                }
-                OnUpdateLoggerJob::dispatchSync($user, $ignoreFields);
+        if (!$isIgnoreUpdateAction) {
+            static::updated(function ($model) {
+                AuditLogger::with(new UpdateAction())->log($model);
             });
         }
 
         $isIgnoreDeleteAction = self::isActionIgnored($ignoreActions, AuditAction::DELETE());
-        if (! $isIgnoreDeleteAction) {
-            static::deleted(function ($user) {
-                OnDeletedLoggerJob::dispatchSync($user);
+        if (!$isIgnoreDeleteAction) {
+            static::deleted(function ($model) {
+                AuditLogger::with(new DeleteAction())->log($model);
             });
         }
     }
