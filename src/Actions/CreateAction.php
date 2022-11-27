@@ -9,7 +9,7 @@ class CreateAction extends AbstractAuditAction
 {
     protected function mapPayload(): AuditLog
     {
-        $this->builder->setAction(AuditAction::CREATE())
+        $this->builder->setAction(AuditAction::from('created'))
             ->setRefId($this->model->getKey())
             ->setRefType(get_class($this->model))
             ->setState($this->model->getAttributes())

@@ -35,7 +35,7 @@ class UpdateAction extends AbstractAuditAction
 
     protected function mapPayload($fieldName, $editedValue): AuditLog
     {
-        $this->builder->setAction(AuditAction::UPDATE())
+        $this->builder->setAction(AuditAction::from('updated'))
             ->setRefId($this->model->getKey())
             ->setRefType(get_class($this->model))
             ->setRefField($fieldName)
