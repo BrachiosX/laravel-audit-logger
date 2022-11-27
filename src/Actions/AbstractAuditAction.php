@@ -4,6 +4,7 @@ namespace BrachiosX\AuditLogger\Actions;
 
 use BrachiosX\AuditLogger\Builder\AuditLogPayloadBuilder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\App;
 
 abstract class AbstractAuditAction implements IAuditAction
 {
@@ -13,7 +14,7 @@ abstract class AbstractAuditAction implements IAuditAction
 
     public function __construct()
     {
-        $this->builder = new AuditLogPayloadBuilder();
+        $this->builder = App::make('audit-log-payload-builder');
     }
 
     public function setRefModel(Model $model): static
