@@ -1,4 +1,4 @@
-# Provide application in auditing model changes.
+# Audit Log module for laravel application
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/brachiosx/laravel-audit-logger.svg?style=flat-square)](https://packagist.org/packages/brachiosx/laravel-audit-logger)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/brachiosx/laravel-audit-logger/run-tests?label=tests)](https://github.com/brachiosx/laravel-audit-logger/actions?query=workflow%3Arun-tests+branch%3Amain)
