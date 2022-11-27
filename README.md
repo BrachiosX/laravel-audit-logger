@@ -37,12 +37,6 @@ return [
 ];
 ```
 
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="laravel-audit-logger-views"
-```
-
 ## Usage
 
 use exposed trait `HasAuditLog` in desired laravel model class.
