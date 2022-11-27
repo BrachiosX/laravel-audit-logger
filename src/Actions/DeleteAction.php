@@ -9,7 +9,7 @@ class DeleteAction extends AbstractAuditAction
 {
     protected function mapPayload(): AuditLog
     {
-        $this->builder->setAction(AuditAction::from('deleted'))
+        $this->builder->setAction(AuditAction::DELETE())
             ->setRefId($this->model->getKey())
             ->setRefType(get_class($this->model))
             ->setState($this->model->getAttributes())
