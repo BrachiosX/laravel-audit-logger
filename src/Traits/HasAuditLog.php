@@ -8,36 +8,35 @@ use BrachiosX\AuditLogger\Actions\UpdateAction;
 use BrachiosX\AuditLogger\AuditLogger;
 use BrachiosX\AuditLogger\Enums\AuditAction;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 
 trait HasAuditLog
 {
     public static function bootHasAuditLog()
     {
-        $ignoreActions = collect([]);
-        if (method_exists(self::class, 'ignoreAuditActions')) {
-            $ignoreActions = collect((new self)->ignoreAuditActions());
+        $ignoreActions = self::getIgnoreActions();
+
+        self::registerIfNotIgnore($ignoreActions, 'created');
+
+        self::registerIfNotIgnore($ignoreActions, 'updated');
+
+        self::registerIfNotIgnore($ignoreActions, 'deleted');
+    }
+
+    /**
+     * @param  string  $action
+     * @return void
+     */
+    protected static function registerAction(string $action): void
+    {
+        $auditAction = (new self)->getAuditAction($action);
+        if (!$auditAction) {
+            Log::error("Cannot find audit-action [{$action}] in binding.");
         }
 
-        $isIgnoreCreateAction = self::isActionIgnored($ignoreActions, AuditAction::CREATE());
-        if (! $isIgnoreCreateAction) {
-            static::created(function ($model) {
-                AuditLogger::with(new CreateAction())->log($model);
-            });
-        }
-
-        $isIgnoreUpdateAction = self::isActionIgnored($ignoreActions, AuditAction::UPDATE());
-        if (! $isIgnoreUpdateAction) {
-            static::updated(function ($model) {
-                AuditLogger::with(new UpdateAction())->log($model);
-            });
-        }
-
-        $isIgnoreDeleteAction = self::isActionIgnored($ignoreActions, AuditAction::DELETE());
-        if (! $isIgnoreDeleteAction) {
-            static::deleted(function ($model) {
-                AuditLogger::with(new DeleteAction())->log($model);
-            });
-        }
+        static::$action(function ($model) use ($auditAction) {
+            AuditLogger::on(new $auditAction)->log($model);
+        });
     }
 
     /**
@@ -47,8 +46,49 @@ trait HasAuditLog
      */
     protected static function isActionIgnored(Collection $ignoreActions, AuditAction $searchAction): bool
     {
-        return $ignoreActions->contains(function (AuditAction $action) use ($searchAction) {
-            return $action->getValue() === $searchAction->getValue();
+        return $ignoreActions->contains(function (string $action) use ($searchAction) {
+            return $action === $searchAction->getValue();
         });
+    }
+
+    protected function getAuditAction(string $value)
+    {
+        return collect($this->bindingAuditActions())->get($value);
+    }
+
+    /**
+     * @return string[]
+     */
+    public function bindingAuditActions(): array
+    {
+        return [
+            'created' => CreateAction::class,
+            'updated' => UpdateAction::class,
+            'deleted' => DeleteAction::class
+        ];
+    }
+
+    /**
+     * @param  Collection  $ignoreActions
+     * @return void
+     */
+    protected static function registerIfNotIgnore(Collection $ignoreActions, string $action): void
+    {
+        $isIgnoreCreateAction = self::isActionIgnored($ignoreActions, AuditAction::from($action));
+        if (!$isIgnoreCreateAction) {
+            self::registerAction($action);
+        }
+    }
+
+    /**
+     * @return Collection
+     */
+    protected static function getIgnoreActions(): Collection
+    {
+        $ignoreActions = collect([]);
+        if (property_exists(self::class, 'ignore_audit_actions')) {
+            $ignoreActions = collect((new self)->ignore_audit_actions);
+        }
+        return $ignoreActions;
     }
 }

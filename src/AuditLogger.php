@@ -14,7 +14,7 @@ class AuditLogger
         $this->action = $action;
     }
 
-    public static function with(IAuditAction $action)
+    public static function on(IAuditAction $action)
     {
         return new self($action);
     }

@@ -2,7 +2,6 @@
 
 namespace BrachiosX\AuditLogger\Builder;
 
-use BrachiosX\AuditLogger\Enums\AuditAction;
 use BrachiosX\AuditLogger\Models\AuditLog;
 
 class AuditLogPayloadBuilder
@@ -56,7 +55,7 @@ class AuditLogPayloadBuilder
         return $this;
     }
 
-    public function setAction(AuditAction $action): static
+    public function setAction(string $action): static
     {
         $this->auditLog->setAttribute('action', $action);
 
