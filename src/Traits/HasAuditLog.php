@@ -30,7 +30,7 @@ trait HasAuditLog
     protected static function registerAction(string $action): void
     {
         $auditAction = (new self)->getAuditAction($action);
-        if (!$auditAction) {
+        if (! $auditAction) {
             Log::error("Cannot find audit-action [{$action}] in binding.");
         }
 
@@ -64,7 +64,7 @@ trait HasAuditLog
         return [
             'created' => CreateAction::class,
             'updated' => UpdateAction::class,
-            'deleted' => DeleteAction::class
+            'deleted' => DeleteAction::class,
         ];
     }
 
@@ -75,7 +75,7 @@ trait HasAuditLog
     protected static function registerIfNotIgnore(Collection $ignoreActions, string $action): void
     {
         $isIgnoreCreateAction = self::isActionIgnored($ignoreActions, AuditAction::from($action));
-        if (!$isIgnoreCreateAction) {
+        if (! $isIgnoreCreateAction) {
             self::registerAction($action);
         }
     }
@@ -89,6 +89,7 @@ trait HasAuditLog
         if (property_exists(self::class, 'ignore_audit_actions')) {
             $ignoreActions = collect((new self)->ignore_audit_actions);
         }
+
         return $ignoreActions;
     }
 }
