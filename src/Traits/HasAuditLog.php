@@ -24,6 +24,30 @@ trait HasAuditLog
     }
 
     /**
+     * @param  Collection  $ignoreActions
+     * @return void
+     */
+    protected static function registerIfNotIgnore(Collection $ignoreActions, string $action): void
+    {
+        $isIgnoreCreateAction = self::isActionIgnored($ignoreActions, AuditAction::from($action));
+        if (! $isIgnoreCreateAction) {
+            self::registerAction($action);
+        }
+    }
+
+    /**
+     * @param  Collection  $ignoreActions
+     * @param  AuditAction  $searchAction
+     * @return bool
+     */
+    protected static function isActionIgnored(Collection $ignoreActions, AuditAction $searchAction): bool
+    {
+        return $ignoreActions->contains(function (string $action) use ($searchAction) {
+            return $action === $searchAction->getValue();
+        });
+    }
+
+    /**
      * @param  string  $action
      * @return void
      */
@@ -36,18 +60,6 @@ trait HasAuditLog
 
         static::$action(function ($model) use ($auditAction) {
             AuditLogger::on(new $auditAction)->log($model);
-        });
-    }
-
-    /**
-     * @param  Collection  $ignoreActions
-     * @param  AuditAction  $searchAction
-     * @return bool
-     */
-    protected static function isActionIgnored(Collection $ignoreActions, AuditAction $searchAction): bool
-    {
-        return $ignoreActions->contains(function (string $action) use ($searchAction) {
-            return $action === $searchAction->getValue();
         });
     }
 
@@ -66,18 +78,6 @@ trait HasAuditLog
             'updated' => UpdateAction::class,
             'deleted' => DeleteAction::class,
         ];
-    }
-
-    /**
-     * @param  Collection  $ignoreActions
-     * @return void
-     */
-    protected static function registerIfNotIgnore(Collection $ignoreActions, string $action): void
-    {
-        $isIgnoreCreateAction = self::isActionIgnored($ignoreActions, AuditAction::from($action));
-        if (! $isIgnoreCreateAction) {
-            self::registerAction($action);
-        }
     }
 
     /**
