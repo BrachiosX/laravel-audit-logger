@@ -24,5 +24,9 @@ abstract class AbstractAuditAction implements IAuditAction
         return $this;
     }
 
+    /**
+     * Method to save audit log information
+     * @return mixed
+     */
     abstract public function create();
 }
