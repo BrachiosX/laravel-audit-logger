@@ -10,6 +10,7 @@ interface IAuditAction
 
     /**
      * Method to apply logic of the action
+     *
      * @return mixed
      */
     public function create();

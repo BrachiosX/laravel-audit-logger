@@ -26,6 +26,7 @@ abstract class AbstractAuditAction implements IAuditAction
 
     /**
      * Method to save audit log information
+     *
      * @return mixed
      */
     abstract public function create();
