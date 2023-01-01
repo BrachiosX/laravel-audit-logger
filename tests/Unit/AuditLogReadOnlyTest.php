@@ -18,7 +18,7 @@ it('cannot update audit log record', function () {
     $log = AuditLog::factory()->create();
 
     // act, assert
-    expect(fn () =>     $log->update([
+    expect(fn () => $log->update([
         'ref_field' => 'testField',
     ]))->toThrow(InvalidAuditLogAction::class);
 });
