@@ -91,7 +91,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [Zaw Hlyan Htet](https://github.com/zest97)
+- [Liam](https://github.com/zest97)
 - [All Contributors](../../contributors)
 
 ## License
