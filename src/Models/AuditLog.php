@@ -4,6 +4,7 @@ namespace BrachiosX\AuditLogger\Models;
 
 use BrachiosX\AuditLogger\Traits\OnlyUseCreatedTimestamp;
 use BrachiosX\AuditLogger\Traits\PreventsModelEvents;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -11,6 +12,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class AuditLog extends Model
 {
+    use HasFactory;
+
     protected $guarded = [];
 
     /**
