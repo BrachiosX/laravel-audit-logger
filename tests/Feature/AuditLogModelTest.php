@@ -33,7 +33,7 @@ it('add log state with updated action on model update', function () {
     sleep(1);
 
     $user->update([
-        'name' => $testName
+        'name' => $testName,
     ]);
 
     // act

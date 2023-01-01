@@ -18,8 +18,8 @@ it('cannot update audit log record', function () {
     $log = AuditLog::factory()->create();
 
     // act, assert
-    expect(fn() => $log->update([
-        'action' => 'updated'
+    expect(fn () => $log->update([
+        'action' => 'updated',
     ]))->toThrow(InvalidAuditLogAction::class);
 });
 
@@ -30,7 +30,7 @@ it('cannot delete audit log record', function () {
     sleep(1);
 
     // act, assert
-    expect(fn() => $log->delete())->toThrow(InvalidAuditLogAction::class);
+    expect(fn () => $log->delete())->toThrow(InvalidAuditLogAction::class);
 });
 
 uses()->group('audit-logger-read-only-test');

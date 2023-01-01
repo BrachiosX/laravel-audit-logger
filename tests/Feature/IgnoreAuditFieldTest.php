@@ -20,7 +20,7 @@ it('can ignore field from global config', function () {
 
     $user->update([
         'email' => 'dummyEmail@test.com',
-        'name' => 'testName'
+        'name' => 'testName',
     ]);
 
     //assert
@@ -46,7 +46,7 @@ it('can set model specific ignore field to log on model update', function () {
     //act
     $userModel->whereId(1)->update([
         'email' => 'dummyEmail@test.com',
-        'name' => 'testName'
+        'name' => 'testName',
     ]);
 
     //assert
