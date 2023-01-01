@@ -18,16 +18,14 @@ it('cannot update audit log record', function () {
     $log = AuditLog::factory()->create();
 
     // act, assert
-    expect(fn () => $log->update([
-        'action' => 'updated',
+    expect(fn () =>     $log->update([
+        'ref_field' => 'testField',
     ]))->toThrow(InvalidAuditLogAction::class);
 });
 
 it('cannot delete audit log record', function () {
     // prepare
     $log = AuditLog::factory()->create();
-
-    sleep(1);
 
     // act, assert
     expect(fn () => $log->delete())->toThrow(InvalidAuditLogAction::class);
