@@ -2,8 +2,8 @@
 
 namespace BrachiosX\AuditLogger\Actions;
 
+use BrachiosX\AuditLogger\Builder\AuditLogPayloadBuilder;
 use BrachiosX\AuditLogger\Enums\AuditAction;
-use BrachiosX\AuditLogger\Models\AuditLog;
 use Illuminate\Support\Collection;
 
 class UpdateAction extends AbstractAuditAction
@@ -33,7 +33,7 @@ class UpdateAction extends AbstractAuditAction
         $this->mapPayload($fieldName, $editedValue)->save();
     }
 
-    protected function mapPayload($fieldName, $editedValue): AuditLog
+    protected function mapPayload($fieldName, $editedValue): AuditLogPayloadBuilder
     {
         $this->builder->setAction(AuditAction::UPDATE())
             ->setRefId($this->model->getKey())
@@ -46,7 +46,7 @@ class UpdateAction extends AbstractAuditAction
             ->setCreatedBy(auth()->id())
             ->setIPAddress(request()->ip());
 
-        return $this->builder->auditLog;
+        return $this->builder;
     }
 
     protected function getIgnoreFields()

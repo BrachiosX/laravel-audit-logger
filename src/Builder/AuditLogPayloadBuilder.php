@@ -82,4 +82,12 @@ class AuditLogPayloadBuilder
 
         return $this;
     }
+
+    public function save()
+    {
+        $this->auditLog->save();
+
+        // reset model
+        $this->auditLog = new AuditLog();
+    }
 }
