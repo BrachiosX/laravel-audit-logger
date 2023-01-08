@@ -51,7 +51,7 @@ class UpdateAction extends AbstractAuditAction
 
     protected function getIgnoreFields()
     {
-        $ignoreFields = config('audit_logger.ignore_fields', []);
+        $ignoreFields = config('audit_logger.audit_ignore_fields', []);
         if (property_exists($this->model, 'ignore_auditing')) {
             $ignoreFields = array_merge(
                 $ignoreFields,

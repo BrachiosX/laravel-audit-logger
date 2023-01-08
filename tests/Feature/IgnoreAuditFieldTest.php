@@ -9,7 +9,7 @@ use BrachiosX\AuditLogger\Tests\Models\User;
 it('can ignore field from global config', function () {
     //prepare
     $ignoreAuditFields = ['name'];
-    config()->set('audit_logger.ignore_fields', $ignoreAuditFields);
+    config()->set('audit_logger.audit_ignore_fields', $ignoreAuditFields);
 
     $user = User::factory()->create();
 
