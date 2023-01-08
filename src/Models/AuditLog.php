@@ -28,6 +28,16 @@ class AuditLog extends Model
 
     public function getTable()
     {
-        return config('audit_logger.table_name', parent::getTable());
+        return config('audit_logger.database.table_name', parent::getTable());
+    }
+
+    public function getConnection()
+    {
+        $configuredConnection = config('audit_logger.database.connection');
+        if (empty($configuredConnection)) {
+            $configuredConnection = parent::getConnection();
+        }
+
+        return $configuredConnection;
     }
 }

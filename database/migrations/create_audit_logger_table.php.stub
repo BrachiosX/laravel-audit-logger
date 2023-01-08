@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up()
     {
-        $tableName = config('audit_logger.table_name');
+        $tableName = config('audit_logger.database.table_name');
 
         if (empty($tableName)) {
             throw new \Exception('Error: config/audit_logger.php not loaded. Run [php artisan config:clear] and try again.');
