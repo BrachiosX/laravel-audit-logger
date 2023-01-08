@@ -37,6 +37,7 @@ class AuditLog extends Model
         if (empty($configuredConnection)) {
             $configuredConnection = parent::getConnection();
         }
+
         return $configuredConnection;
     }
 }

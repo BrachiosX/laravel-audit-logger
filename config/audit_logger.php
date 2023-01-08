@@ -4,7 +4,7 @@
 return [
     'database' => [
         'connection' => '',
-        'table_name' => 'laravel_audit_logger_table'
+        'table_name' => 'laravel_audit_logger_table',
     ],
     'audit_ignore_fields' => ['updated_at'],
 ];
