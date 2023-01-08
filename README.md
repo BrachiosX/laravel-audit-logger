@@ -32,7 +32,10 @@ This is the contents of the published config file:
 
 ```php
 return [
-    'table_name' => 'laravel_audit_logger_table',       // table name for audit-log
+    'database' => [
+        'connection' => '',             // table connection    
+        'table_name' => 'laravel_audit_logger_table'       // table name for audit-log
+    ],
     'ignore_fields' => ['updated_at'],                  // default ignore fields to skip log
 ];
 ```
